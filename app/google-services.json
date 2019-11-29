@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252971127619",
+    "firebase_url": "https://dog-breed-recognition.firebaseio.com",
+    "project_id": "dog-breed-recognition",
+    "storage_bucket": "dog-breed-recognition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252971127619:android:1dae9dbde3db8bb32515f6",
+        "android_client_info": {
+          "package_name": "com.example.dogbreedrecognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252971127619-aksr7fluvhou32raloihlocqpd8hn3p1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dogbreedrecognition",
+            "certificate_hash": "ba00cd7fcf0977e826fb29865ba865c9bb8ddb19"
+          }
+        },
+        {
+          "client_id": "252971127619-9k123m0o42bp8sqno5pr2c56lk0lsjje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD4HtkD9QV-6Fie5Pr_9slabtnlLVvx-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252971127619-9k123m0o42bp8sqno5pr2c56lk0lsjje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
