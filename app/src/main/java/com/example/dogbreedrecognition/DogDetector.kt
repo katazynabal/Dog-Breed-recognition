@@ -46,9 +46,9 @@ class DogDetector(private val context: Context) {
                 // Normalize channel values to [-1.0, 1.0]. This requirement varies by
                 // model. For example, some models might require values to be normalized
                 // to the range [0.0, 1.0] instead.
-                input[batchNum][x][y][0] = (Color.red(pixel) - 127) / 255.0f
-                input[batchNum][x][y][1] = (Color.green(pixel) - 127) / 255.0f
-                input[batchNum][x][y][2] = (Color.blue(pixel) - 127) / 255.0f
+                input[batchNum][x][y][0] = (((pixel shr 16 and 0xFF) - MEAN) / STD)
+                input[batchNum][x][y][1] = (((pixel shr 8 and 0xFF) - MEAN) / STD)
+                input[batchNum][x][y][2] = (((pixel and 0xFF) - MEAN) / STD)
             }
         }
 
