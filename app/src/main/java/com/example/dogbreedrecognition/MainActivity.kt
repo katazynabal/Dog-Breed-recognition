@@ -49,18 +49,15 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             PERMISSION_REQUEST_CODE -> {
-
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
                     takePicture()
-
                 } else {
                     Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
                 }
                 return
             }
-
             else -> {
 
             }
@@ -68,7 +65,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun takePicture() {
-
         val intent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val file: File = createFile()
 
@@ -79,7 +75,6 @@ class MainActivity : AppCompatActivity() {
         )
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-
     }
 
     @SuppressLint("MissingSuperCall")
@@ -100,7 +95,6 @@ class MainActivity : AppCompatActivity() {
                 bitmap.getHeight(),
                 matrix, true)
             )
-
             DogDetector(this).doStuff(bitmap, imageView)
         }
     }

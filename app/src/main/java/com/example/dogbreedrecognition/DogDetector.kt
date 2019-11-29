@@ -1,11 +1,11 @@
 package com.example.dogbreedrecognition
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
 import android.widget.ImageView
-import androidx.appcompat.app.AlertDialog
 import com.google.firebase.ml.custom.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -40,22 +40,24 @@ class DogDetector(private val context: Context) {
             .setOutputFormat(0, FirebaseModelDataType.FLOAT32, intArrayOf(1, labels.size))
             .build()
 
-        val batchNum = 0
-        val input = Array(1) { Array(224) { Array(224) { FloatArray(3) } } }
-        for (x in 0..223) {
-            for (y in 0..223) {
-                val pixel = bitmap.getPixel(x, y)
-                // Normalize channel values to [-1.0, 1.0]. This requirement varies by
-                // model. For example, some models might require values to be normalized
-                // to the range [0.0, 1.0] instead.
-                input[batchNum][x][y][0] = (((pixel shr 16 and 0xFF) - MEAN) / STD)
-                input[batchNum][x][y][1] = (((pixel shr 8 and 0xFF) - MEAN) / STD)
-                input[batchNum][x][y][2] = (((pixel and 0xFF) - MEAN) / STD)
-            }
+        val imgData = ByteBuffer.allocateDirect(4 * IMG_SIZE * IMG_SIZE * 3).apply {
+            order(ByteOrder.nativeOrder())
+            rewind()
+        }
+
+        val pixels = IntArray(IMG_SIZE * IMG_SIZE)
+        Bitmap.createScaledBitmap(bitmap, IMG_SIZE, IMG_SIZE, false).apply {
+            getPixels(pixels, 0, width, 0, 0, width, height)
+        }
+
+        pixels.forEach {
+            imgData.putFloat(((it shr 16 and 0xFF) - MEAN) / STD)
+            imgData.putFloat(((it shr 8 and 0xFF) - MEAN) / STD)
+            imgData.putFloat(((it and 0xFF) - MEAN) / STD)
         }
 
         val inputs = FirebaseModelInputs.Builder()
-            .add(input) // add() as many input arrays as your model requires
+            .add(imgData) // add() as many input arrays as your model requires
             .build()
 
         interpreter?.run(inputs, inputOutputOptions)?.addOnSuccessListener { result ->
@@ -68,10 +70,10 @@ class DogDetector(private val context: Context) {
             //view?.displayDogBreed(label.first, label.second*100)
             Log.e("boom","veikia ->" + label)
 
-            val string: String = ""
-            val alertDialogBuilder = AlertDialog.Builder(imageView.context)
+            val string: String = "Your dog is: "
+            val alertDialogBuilder = androidx.appcompat.app.AlertDialog.Builder(imageView.context)
             alertDialogBuilder.setTitle(string)
-            alertDialogBuilder.setMessage(label?:"")
+            alertDialogBuilder.setMessage(label.toString())
             alertDialogBuilder.setPositiveButton("OK") { arg0, arg1 -> }
             val alertDialog = alertDialogBuilder.create()
             alertDialog.show()
