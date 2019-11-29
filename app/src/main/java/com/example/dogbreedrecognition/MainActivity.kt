@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -89,9 +90,17 @@ class MainActivity : AppCompatActivity() {
             val auxFile = File(mCurrentPhotoPath)
 
 
-            var bitmap: Bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
-            imageView.setImageBitmap(bitmap)
+            var matrix: Matrix = Matrix()
+            matrix.postRotate(90F)
 
+            var bitmap: Bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
+
+            imageView.setImageBitmap(Bitmap.createBitmap(
+                bitmap, 0, 0,
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                matrix, true)
+            )
         }
     }
 
