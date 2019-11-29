@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                 bitmap.getHeight(),
                 matrix, true)
             )
-            DogDetector(this).doStuff(bitmap)
+            DogDetector(this).doStuff(bitmap, imageView)
         }
     }
 
