@@ -64,7 +64,7 @@ class DogDetector(private val context: Context) {
                 }.maxBy { it.second }!!
 
             //view?.displayDogBreed(label.first, label.second*100)
-            Log.e("boom","veikia")
+            Log.e("boom","veikia ->" + label)
             }?.addOnFailureListener { e ->
                 Log.e("boom","neveikia Q_Q")
             }
