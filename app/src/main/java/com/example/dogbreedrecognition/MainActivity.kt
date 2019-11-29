@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             //To get the File for further usage
             val auxFile = File(mCurrentPhotoPath)
 
-
             var matrix: Matrix = Matrix()
             matrix.postRotate(90F)
 
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                 matrix, true)
             )
 
-            DogDetector(this).doStuff(bitmap)
+            DogDetector(this).doStuff(bitmap, imageView)
         }
     }
 

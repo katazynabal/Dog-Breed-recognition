@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.ml.custom.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -24,7 +26,7 @@ class DogDetector(private val context: Context) {
         initializeLabels()
     }
 
-    fun doStuff(bitmap: Bitmap) {
+    fun doStuff(bitmap: Bitmap, imageView: ImageView) {
         val localModel = FirebaseCustomLocalModel.Builder()
             .setAssetFilePath("dog-breed-detector.tflite")
             .build()
@@ -65,6 +67,15 @@ class DogDetector(private val context: Context) {
 
             //view?.displayDogBreed(label.first, label.second*100)
             Log.e("boom","veikia ->" + label)
+
+            val string: String = ""
+            val alertDialogBuilder = AlertDialog.Builder(imageView.context)
+            alertDialogBuilder.setTitle(string)
+            alertDialogBuilder.setMessage(label?:"")
+            alertDialogBuilder.setPositiveButton("OK") { arg0, arg1 -> }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+
             }?.addOnFailureListener { e ->
                 Log.e("boom","neveikia Q_Q")
             }
